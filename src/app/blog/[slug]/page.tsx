@@ -1,31 +1,17 @@
 // src/app/blog/[slug]/page.tsx
-import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
-import type { Post } from '@/sanity/types' // Apenas o tipo base é necessário
+import type { Post } from '@/sanity/types'
 import styles from './Post.module.css'
 import ctaStyles from '../../Home.module.css'
 
-// 1. Geração de Metadata (SEO) - Com a busca de dados feita aqui dentro
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const query = `*[_type == "post" && slug.current == $slug][0]{ title, excerpt }`
-  const post: Post = await client.fetch(query, { slug: params.slug })
+// A função generateMetadata foi REMOVIDA TEMPORARIAMENTE para teste do build.
 
-  if (!post) {
-    return { title: 'Post não encontrado' }
-  }
-
-  return {
-    title: `${post.title} | Blog Vitória Dandara`,
-    description: post.excerpt,
-  }
-}
-
-// 2. Componente da Página - Com a busca de dados feita aqui dentro
+// Componente da Página
 export default async function SinglePostPage({ params }: { params: { slug: string } }) {
   const query = `*[_type == "post" && slug.current == $slug][0]{
     title,
