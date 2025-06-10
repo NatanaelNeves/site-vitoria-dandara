@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react'; // Importando o useState e useEffect
 import styles from './Header.module.css';
 
 const navLinks = [
@@ -13,8 +14,26 @@ const navLinks = [
   { name: 'Contato', href: '/contato' },
 ];
 
+// Componente para o ícone do menu, para não poluir o principal
+function MenuIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 6H20M4 12H20M4 18H20" stroke="#5A4B81" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
 export function Header() {
   const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Efeito para fechar o menu se a rota mudar
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [pathname]);
+
 
   return (
     <header className={styles.header}>
@@ -25,7 +44,9 @@ export function Header() {
             <span>Psicóloga • CRP 11/20899</span>
           </Link>
         </div>
-        <nav className={styles.navLinks}>
+
+        {/* Navegação para Desktop */}
+        <nav className={styles.desktopNav}>
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -38,10 +59,27 @@ export function Header() {
               </Link>
             );
           })}
+          <div className={styles.ctaButton}>
+             <Link href="/contato">Agendar Consulta</Link>
+          </div>
         </nav>
-        <div className={styles.ctaButton}>
-          <Link href="/contato">Agendar Consulta</Link>
-        </div>
+
+        {/* Botão do Menu Mobile */}
+        <button className={styles.menuButton} onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Abrir menu">
+          <MenuIcon />
+        </button>
+      </div>
+
+      {/* Painel do Menu Mobile (Overlay) */}
+      <div className={`${styles.mobileNav} ${isMenuOpen ? styles.open : ''}`}>
+        {navLinks.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+          >
+            {link.name}
+          </Link>
+        ))}
       </div>
     </header>
   );

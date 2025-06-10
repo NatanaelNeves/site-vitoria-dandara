@@ -1,44 +1,102 @@
 /* src/components/Header.module.css */
 .header {
-    background-color: var(--white);
-    box-shadow: var(--box-shadow);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    padding: 1rem 0;
-  }
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 1rem 0;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--lilac);
+  line-height: 1.2;
+  transition: color 0.2s ease-in-out;
+  position: relative;
+  z-index: 100; /* Garante que o logo fique acima do menu overlay */
+}
+
+.logo a:hover {
+  color: var(--teal);
+}
+
+.logo span {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--dark-text);
+  display: block;
+}
+
+/* Esconde a navegação de desktop em telas menores */
+.desktopNav {
+  display: none;
+}
+
+/* NOVO: Estilos para o botão do menu mobile */
+.menuButton {
+  display: flex; /* Por padrão, será flex para alinhar o ícone */
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 100; /* Garante que o botão fique acima do menu overlay */
+}
+
+/* NOVO: Estilos para o painel do menu mobile */
+.mobileNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
   
-  .navContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.mobileNav.open {
+  transform: translateX(0);
+  box-shadow: 10px 0px 30px rgba(0,0,0,0.1);
+}
+
+.mobileNav a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--lilac);
+  padding: 1rem;
+}
+
+/* Media Query: Aplica estilos a partir de telas médias (desktop) */
+@media (min-width: 768px) {
+  /* Esconde o botão mobile no desktop */
+  .menuButton {
+    display: none;
+  }
+
+  /* Mostra a navegação de desktop */
+  .desktopNav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
   }
-  
-  .logo a {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--lilac);
-    line-height: 1.2;
-    transition: color 0.2s ease-in-out;
-  }
-  
-  .logo a:hover {
-    color: var(--teal);
-  }
-  
-  .logo span {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--dark-text);
-    display: block; /* <-- CORREÇÃO APLICADA */
-  }
-  
-  .navLinks {
-    display: none; /* Escondido em telas pequenas */
-  }
-  
+
   .navLink {
     font-family: var(--font-body);
     font-weight: 700;
@@ -48,15 +106,15 @@
     position: relative;
     transition: color 0.2s ease-in-out;
   }
-  
+
   .navLink:hover {
     color: var(--lilac);
   }
-  
+
   .navLink.active {
     color: var(--lilac);
   }
-  
+
   .navLink.active::after {
     content: '';
     position: absolute;
@@ -67,31 +125,20 @@
     background-color: var(--lilac);
   }
   
-  .ctaButton {
-    display: none; /* Escondido em telas pequenas */
+  .ctaButton a {
+    background-color: var(--lilac);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    margin-left: 1rem;
   }
   
-  /* Mostra a navegação e o botão em telas maiores */
-  @media (min-width: 768px) {
-    .navLinks, .ctaButton {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .ctaButton a {
-      background-color: var(--lilac);
-      color: var(--white);
-      font-family: var(--font-body);
-      font-weight: 700;
-      padding: 0.75rem 1.5rem;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-    }
-    
-    .ctaButton a:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-    }
+  .ctaButton a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   }
+}
