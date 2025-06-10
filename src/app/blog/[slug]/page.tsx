@@ -10,17 +10,13 @@ import type { Post } from '@/sanity/types'
 import styles from './Post.module.css'
 import ctaStyles from '../../Home.module.css'
 
-type Props = {
-  params: { slug: string }
-}
-
 // Interface para os dados do post que usaremos na página
 interface PostPageData extends Post {
   categories?: { title: string }[];
 }
 
 // Função para gerar o SEO da página dinamicamente
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const query = `*[_type == "post" && slug.current == $slug][0]{
     title,
     excerpt
@@ -50,7 +46,8 @@ async function getPost(slug: string): Promise<PostPageData> {
   return post
 }
 
-export default async function SinglePostPage({ params }: Props) {
+// Componente da página com a tipagem corrigida
+export default async function SinglePostPage({ params }: { params: { slug: string } }) {
   const post = await getPost(params.slug)
 
   if (!post) {
