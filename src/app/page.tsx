@@ -6,21 +6,14 @@ import { urlForImage } from "@/sanity/lib/image";
 import type { Post } from "@/sanity/types";
 import styles from './Home.module.css';
 
-// Busca os 3 posts mais recentes do blog
 async function getLatestPosts(): Promise<Post[]> {
   const query = `*[_type == "post"] | order(publishedAt desc) [0...3] {
-    _id,
-    title,
-    "slug": slug.current,
-    mainImage,
-    excerpt,
-    publishedAt
+    _id, title, "slug": slug.current, mainImage, excerpt, publishedAt
   }`;
   const posts = await client.fetch(query);
   return posts;
 }
 
-// Dados de exemplo para seções
 const services = [
   { icon: "💬", title: "Psicoterapia Individual", description: "Um espaço seguro para explorar suas emoções, pensamentos e comportamentos." },
   { icon: "🌱", title: "Apoio a Adolescentes", description: "Orientação e suporte para os desafios da adolescência, identidade e autoestima." },
@@ -40,9 +33,7 @@ export default async function HomePage() {
       <section className={styles.hero}>
         <div className="container">
           <h1>Cuidar da mente é um ato de coragem. Vamos juntas?</h1>
-          <p>
-            Estou aqui para caminhar com você em sua jornada de autoconhecimento e bem-estar. Encontre um espaço seguro para explorar seus sentimentos.
-          </p>
+          <p>Estou aqui para caminhar com você em sua jornada de autoconhecimento e bem-estar. Encontre um espaço seguro e acolhedor para explorar seus sentimentos.</p>
           <Link href="/contato" className={styles.heroButton}>
             Quero Agendar uma Conversa
           </Link>
@@ -52,14 +43,10 @@ export default async function HomePage() {
       {/* Seção de Apresentação Rápida */}
       <section className={`${styles.section} container`}>
         <div className={styles.introGrid}>
-          <div className={styles.introImageContainer}>
-            {/* COLOQUE UMA IMAGEM PROFISSIONAL DA VITÓRIA AQUI */}
-          </div>
+          <div className={styles.introImageContainer}></div>
           <div className={styles.introText}>
             <h3>Sou Vitória Dandara, sua psicóloga.</h3>
-            <p>
-              Com uma abordagem acolhedora e baseada em evidências, meu trabalho é te ajudar a construir ferramentas para uma vida mais leve e consciente. Formada pelo Centro Universitário Sete de Setembro e em contínua formação em Terapia Cognitivo-Comportamental, ofereço um espaço de escuta, ética e compromisso para você ressignificar suas dores.
-            </p>
+            <p>Com uma abordagem acolhedora e baseada em evidências, meu trabalho é te ajudar a construir ferramentas para uma vida mais leve e consciente. Formada pelo Centro Universitário Sete de Setembro e em contínua formação em Terapia Cognitivo-Comportamental, ofereço um espaço de escuta, ética e compromisso para você ressignificar suas dores.</p>
             <Link href="/sobre" className={styles.introLink}>
               Conheça minha história &rarr;
             </Link>
@@ -88,14 +75,12 @@ export default async function HomePage() {
         <section className={`${styles.section} ${styles.blogSection}`}>
           <div className="container">
             <h2 className={styles.sectionTitle}>Últimas do Blog</h2>
-            <div className={styles.servicesGrid}> {/* Reutilizando o grid */}
+            <div className={styles.servicesGrid}>
               {latestPosts.map((post) => (
                 <article key={post._id} className={styles.postCard}>
                   {post.slug && <Link href={`/blog/${post.slug}`}>
                     <div className={styles.imageContainer}>
-                      {post.mainImage && (
-                        <Image src={urlForImage(post.mainImage)?.url() || ''} alt={`Imagem do post ${post.title}`} fill style={{ objectFit: 'cover' }}/>
-                      )}
+                      {post.mainImage && (<Image src={urlForImage(post.mainImage)?.url() || ''} alt={`Imagem do post ${post.title}`} fill style={{ objectFit: 'cover' }}/>)}
                     </div>
                   </Link>}
                   <div className={styles.cardContent}>
@@ -115,7 +100,8 @@ export default async function HomePage() {
         <div className="container">
           <h2 className={styles.sectionTitle}>O que dizem sobre a terapia</h2>
           <div className={styles.testimonialCard}>
-            <p>"{testimonials[0].quote}"</p>
+            {/* CORREÇÃO APLICADA AQUI */}
+            <p>&ldquo;{testimonials[0].quote}&rdquo;</p>
             <h4>- {testimonials[0].author}</h4>
           </div>
         </div>
