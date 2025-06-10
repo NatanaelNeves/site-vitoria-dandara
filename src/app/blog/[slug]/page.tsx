@@ -10,13 +10,19 @@ import type { Post } from '@/sanity/types'
 import styles from './Post.module.css'
 import ctaStyles from '../../Home.module.css'
 
+// NOVA DEFINIÇÃO DE PROPS - Mais completa para satisfazer o Next.js
+type Props = {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
 // Interface para os dados do post que usaremos na página
 interface PostPageData extends Post {
   categories?: { title: string }[];
 }
 
 // Função para gerar o SEO da página dinamicamente
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const query = `*[_type == "post" && slug.current == $slug][0]{
     title,
     excerpt
@@ -47,7 +53,7 @@ async function getPost(slug: string): Promise<PostPageData> {
 }
 
 // Componente da página com a tipagem corrigida
-export default async function SinglePostPage({ params }: { params: { slug: string } }) {
+export default async function SinglePostPage({ params }: Props) {
   const post = await getPost(params.slug)
 
   if (!post) {
@@ -98,7 +104,7 @@ export default async function SinglePostPage({ params }: { params: { slug: strin
       <section className={`${ctaStyles.section} ${ctaStyles.finalCtaSection}`} style={{marginTop: '5rem', padding: '4rem 1rem'}}>
           <div className="container">
              <h2 className={ctaStyles.sectionTitle}>Este conteúdo te ajudou?</h2>
-             <p className="text-white text-xl mb-10">Esse é só o começo. A terapia é o espaço para aprofundar essas e outras questões. Vamos conversar?</p>
+             <p className="text-white text-xl mb-10">Se você sente que é o momento de cuidar da sua saúde emocional, eu estou aqui para ajudar.</p>
              <Link href="/contato" className={ctaStyles.heroButton}>
                 Agendar uma sessão
             </Link>
