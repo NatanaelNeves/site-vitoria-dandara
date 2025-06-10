@@ -5,7 +5,8 @@ import Image from 'next/image'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
 import type { Post } from '@/sanity/types'
-import blogStyles from '../../Blog.module.css'
+// Apenas UM import de CSS, com o caminho corrigido para subir duas pastas
+import blogStyles from '../../Blog.module.css' 
 
 interface CategoryData {
   categoryTitle: string;
@@ -75,7 +76,6 @@ export default async function CategoryPage({ params }: { params: { slug: string 
           )}
         </div>
 
-        {/* BOTÃO PARA VOLTAR ADICIONADO AQUI */}
         <div className={blogStyles.backLinkContainer}>
           <Link href="/blog" className={blogStyles.backLink}>
             &larr; Ver todos os posts
