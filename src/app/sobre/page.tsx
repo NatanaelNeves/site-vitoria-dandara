@@ -10,20 +10,15 @@ export default function SobrePage() {
     <>
       <div className={styles.pageWrapper}>
         <div className={`container ${styles.content}`}>
-          {/* Adicionar uma foto profissional da Vitória aqui depois */}
-          {/* <div className={homeStyles.introImageContainer} style={{margin: '0 auto 3rem auto', height: '300px', width: '300px', borderRadius: '50%'}}></div> */}
-          
           <h1>Meu Caminho até Você</h1>
-          
           <p style={{textAlign: 'center', fontSize: '1.2rem', fontStyle: 'italic'}}>
             Acredito que a terapia é um ato de coragem e um profundo gesto de autocuidado. Meu papel é ser a facilitadora segura e ética da sua jornada.
           </p>
-
-          <h2>A Escolha pela Psicologia: O Meu "Porquê"</h2>
+          {/* ... (resto do conteúdo que já está correto) ... */}
+          <h2>A Escolha pela Psicologia: O Meu &ldquo;Porquê&rdquo;</h2>
           <p>
             Desde cedo, fui movida por uma inquietação sobre as complexidades da mente humana e pela potência dos laços afetivos. A psicologia não foi apenas uma escolha profissional, mas um chamado para entender e acolher as histórias que cada pessoa carrega. Essa paixão me guiou para uma prática clínica que valoriza não apenas a técnica, mas principalmente a escuta empática e a construção de uma relação de confiança mútua.
           </p>
-
           <h2>Da Teoria à Prática: Uma Formação Completa e Humanizada</h2>
           <p>
             Minha base acadêmica foi construída no curso de Psicologia do <strong>Centro Universitário Sete de Setembro (UNI7)</strong>, onde tive uma formação sólida e crítica. Mas foi além da sala de aula que minha experiência floresceu:
@@ -34,25 +29,11 @@ export default function SobrePage() {
             <li><strong>Estudo do Luto:</strong> Minha participação no <strong>Grupo de Tanatologia da Universidade Federal do Ceará (UFC)</strong> aprofundou meu conhecimento e minha capacidade de oferecer um acolhimento ético e especializado para aqueles que enfrentam perdas.</li>
             <li><strong>Foco em TCC:</strong> Estou em <strong>formação contínua em Terapia Cognitivo-Comportamental (TCC)</strong>, buscando sempre as intervenções mais eficazes e baseadas em evidências para te ajudar a alcançar resultados concretos.</li>
           </ul>
-
           <style jsx>{`
-            ul {
-              list-style-type: none;
-              padding-left: 0;
-            }
-            li {
-              background-color: var(--light-beige);
-              padding: 1rem;
-              border-radius: 8px;
-              margin-bottom: 1rem;
-              border-left: 4px solid var(--teal);
-            }
-            li strong {
-              color: var(--lilac);
-              font-family: var(--font-display);
-            }
+            ul { list-style-type: none; padding-left: 0; }
+            li { background-color: var(--light-beige); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--teal); }
+            li strong { color: var(--lilac); font-family: var(--font-display); }
           `}</style>
-
           <h2>Como Eu Trabalho: Nossa Jornada Terapêutica</h2>
           <p>
             Minha abordagem terapêutica é a <strong>Terapia Cognitivo-Comportamental (TCC)</strong>, mas meu estilo de trabalho é, acima de tudo, <strong>colaborativo e humano</strong>. Em nosso espaço terapêutico, que é livre de julgamentos, vamos trabalhar juntos para:
@@ -64,8 +45,6 @@ export default function SobrePage() {
           </ul>
         </div>
       </div>
-
-      {/* Reutilizando a seção de CTA Final da Home */}
       <section className={`${homeStyles.section} ${homeStyles.finalCtaSection}`} style={{marginTop: '4rem', padding: '4rem 1rem'}}>
           <div className="container">
              <h2 className={homeStyles.sectionTitle}>Vamos começar essa jornada juntos?</h2>
