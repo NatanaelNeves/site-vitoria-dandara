@@ -8,10 +8,16 @@ import { PortableText } from '@portabletext/react'
 import styles from './Post.module.css'
 import ctaStyles from '../../Home.module.css'
 
-// A função generateMetadata foi REMOVIDA TEMPORARIAMENTE para teste do build.
+// Tipos para Next.js 15
+interface PageProps {
+  params: Promise<{ slug: string }>
+}
 
 // Componente da Página
-export default async function SinglePostPage({ params }: { params: { slug: string } }) {
+export default async function SinglePostPage({ params }: PageProps) {
+  // Await nos params para Next.js 15
+  const { slug } = await params
+  
   const query = `*[_type == "post" && slug.current == $slug][0]{
     title,
     mainImage,
@@ -19,7 +25,7 @@ export default async function SinglePostPage({ params }: { params: { slug: strin
     publishedAt,
     "categories": categories[]->{title}
   }`
-  const post = await client.fetch(query, { slug: params.slug })
+  const post = await client.fetch(query, { slug })
 
   if (!post) {
     notFound()
@@ -76,4 +82,20 @@ export default async function SinglePostPage({ params }: { params: { slug: strin
       </section>
     </>
   )
+}
+
+// Função generateMetadata também precisa ser atualizada se você for adicioná-la de volta
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params
+  
+  const query = `*[_type == "post" && slug.current == $slug][0]{
+    title,
+    "description": excerpt
+  }`
+  const post = await client.fetch(query, { slug })
+
+  return {
+    title: post?.title || 'Post não encontrado',
+    description: post?.description || 'Descrição não disponível'
+  }
 }
