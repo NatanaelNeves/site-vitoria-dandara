@@ -56,7 +56,7 @@ Siga os passos abaixo para configurar e rodar o projeto na sua máquina.
     - Crie uma cópia do arquivo `.env.local.example` (se você criar um) ou crie um novo arquivo chamado `.env.local` na raiz do projeto.
     - Adicione as seguintes variáveis:
       ```
-      NEXT_PUBLIC_SANITY_PROJECT_ID="SEU_ID_DE_PROJETO_DO_SANITY"
+      NEXT_PUBLIC_SANITY_PROJECT_ID="7n293x25"
       NEXT_PUBLIC_SANITY_DATASET="production"
       ```
     - Você pode encontrar seu `projectId` no painel do Sanity.io.
