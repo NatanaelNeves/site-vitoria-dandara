@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
-import type { Post } from '@/sanity/types'
 import styles from './Post.module.css'
 import ctaStyles from '../../Home.module.css'
 
