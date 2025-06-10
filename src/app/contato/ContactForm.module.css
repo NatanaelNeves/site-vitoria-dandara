@@ -1,0 +1,120 @@
+/* src/app/contato/ContactForm.module.css */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup label {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .formGroup input,
+  .formGroup textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .formGroup input:focus,
+  .formGroup textarea:focus {
+    outline: none;
+    border-color: var(--lilac);
+    box-shadow: 0 0 0 2px rgba(161, 134, 190, 0.3);
+  }
+  
+  .formGroup textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+  
+  .submitButton {
+    background-color: var(--lilac);
+    color: var(--white);
+    font-weight: 700;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    background-color: #8a6fab;
+  }
+  
+  .submitButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .statusMessage {
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  /* Adicione estes estilos em /src/app/contato/ContactForm.module.css */
+
+.divider {
+  text-align: center;
+  margin: 2rem 0;
+  color: #888;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.whatsappButton {
+  display: block;
+  width: 100%;
+  background-color: #25D366;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.whatsappButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}

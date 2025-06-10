@@ -1,0 +1,97 @@
+/* src/components/Header.module.css */
+.header {
+    background-color: var(--white);
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 1rem 0;
+  }
+  
+  .navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo a {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--lilac);
+    line-height: 1.2;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .logo a:hover {
+    color: var(--teal);
+  }
+  
+  .logo span {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--dark-text);
+    display: block; /* <-- CORREÇÃO APLICADA */
+  }
+  
+  .navLinks {
+    display: none; /* Escondido em telas pequenas */
+  }
+  
+  .navLink {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--dark-text);
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .navLink:hover {
+    color: var(--lilac);
+  }
+  
+  .navLink.active {
+    color: var(--lilac);
+  }
+  
+  .navLink.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: var(--lilac);
+  }
+  
+  .ctaButton {
+    display: none; /* Escondido em telas pequenas */
+  }
+  
+  /* Mostra a navegação e o botão em telas maiores */
+  @media (min-width: 768px) {
+    .navLinks, .ctaButton {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .ctaButton a {
+      background-color: var(--lilac);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 700;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    }
+    
+    .ctaButton a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+  }

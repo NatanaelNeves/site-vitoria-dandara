@@ -1,0 +1,245 @@
+/* src/app/Home.module.css */
+
+/* Seção Hero (Já existente) */
+.hero {
+  background-color: var(--light-beige);
+  padding: 6rem 1rem;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1.2;
+  max-width: 800px;
+  margin: 0 auto;
+  color: var(--lilac);
+}
+
+@media (min-width: 768px) {
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+}
+
+.hero p {
+  font-size: 1.1rem;
+  max-width: 650px;
+  margin: 1.5rem auto 0 auto;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .hero p {
+    font-size: 1.25rem;
+  }
+}
+
+.heroButton {
+  background-color: var(--lilac);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 1rem 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+  display: inline-block;
+  margin-top: 2.5rem;
+  font-size: 1.1rem;
+}
+
+.heroButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Base para Novas Seções */
+.section {
+  padding: 5rem 1rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--lilac);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Seção de Apresentação */
+.introGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .introGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.introImageContainer {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--teal);
+  box-shadow: var(--box-shadow);
+  /* Use uma imagem real da Vitória aqui */
+}
+
+.introText h3 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--lilac);
+  margin-bottom: 1rem;
+}
+
+.introText p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.introLink {
+  font-weight: 700;
+  color: var(--lilac);
+  text-decoration: underline;
+}
+
+/* Seção de Serviços */
+.servicesSection {
+  background-color: var(--light-beige);
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 640px) {
+  .servicesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .servicesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.serviceCard {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+}
+
+.serviceCard .icon {
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--teal);
+}
+
+.serviceCard h4 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.serviceCard p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Seção do Blog e Depoimentos */
+.blogSection {
+  background-color: var(--white);
+}
+
+/* Reutilizando estilos do blog */
+.postCard {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+.postCard:hover {
+  transform: translateY(-5px);
+}
+.imageContainer {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  background-color: var(--light-beige);
+}
+.cardContent {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+.cardContent h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.cardContent .excerpt {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 1rem;
+}
+.cardContent .date {
+  font-size: 0.8rem;
+  color: #888;
+  font-weight: 700;
+}
+
+.testimonialsSection {
+  background-color: var(--lilac);
+}
+
+.testimonialsSection .sectionTitle, .testimonialsSection p, .testimonialsSection h4 {
+  color: var(--white);
+}
+
+.testimonialCard {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  color: var(--white);
+}
+
+.testimonialCard p {
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.testimonialCard h4 {
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+
+/* CTA Final */
+.finalCtaSection {
+  background-color: var(--teal);
+  text-align: center;
+}
+.finalCtaSection .sectionTitle {
+  color: var(--white);
+}

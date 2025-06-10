@@ -1,0 +1,57 @@
+/* src/components/Footer.module.css */
+.footer {
+    background-color: var(--light-beige);
+    padding: 4rem 0 2rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+  
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+      text-align: left;
+    }
+  }
+  
+  .column h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .column p, .column li {
+    color: var(--dark-text);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .column ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .column a:hover {
+    color: var(--lilac);
+  }
+  
+  .bottomBar {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #d1d1d1;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #777;
+  }
+  
+  .bottomBar p {
+    margin-bottom: 0.25rem;
+  }

@@ -1,0 +1,54 @@
+/* src/app/Page.module.css */
+.pageWrapper {
+    padding: 4rem 0;
+  }
+  
+  .content {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+  
+  .content h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .content h2 {
+    font-size: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--teal);
+    padding-left: 1rem;
+  }
+  
+  .content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  
+  .serviceGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  @media (min-width: 768px) {
+    .serviceGrid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .serviceCard {
+    background-color: var(--light-beige);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+  }
+  
+  .serviceCard h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
