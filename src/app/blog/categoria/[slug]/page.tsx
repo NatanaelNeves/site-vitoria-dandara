@@ -13,6 +13,11 @@ interface CategoryData {
   posts: Post[];
 }
 
+// Interface para Next.js 15
+interface PageProps {
+  params: Promise<{ slug: string }>
+}
+
 async function getDataForCategory(slug: string): Promise<CategoryData> {
   const query = `{
     "categoryTitle": *[_type == "category" && slug.current == $slug][0].title,
@@ -29,8 +34,10 @@ async function getDataForCategory(slug: string): Promise<CategoryData> {
   return data
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  const { categoryTitle, posts } = await getDataForCategory(params.slug);
+export default async function CategoryPage({ params }: PageProps) {
+  // Await nos params para Next.js 15
+  const { slug } = await params
+  const { categoryTitle, posts } = await getDataForCategory(slug);
 
   return (
     <>
@@ -85,4 +92,20 @@ export default async function CategoryPage({ params }: { params: { slug: string 
       </section>
     </>
   )
+}
+
+// Função generateMetadata para SEO (opcional)
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params
+  
+  const query = `*[_type == "category" && slug.current == $slug][0]{
+    title,
+    description
+  }`
+  const category = await client.fetch(query, { slug })
+
+  return {
+    title: `Posts sobre ${category?.title || 'Categoria'} | Seu Site`,
+    description: category?.description || `Veja todos os posts sobre ${category?.title || 'esta categoria'}`
+  }
 }
