@@ -6,27 +6,13 @@ import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
-import type { Post } from '@/sanity/types'
+import type { Post } from '@/sanity/types' // Apenas o tipo base é necessário
 import styles from './Post.module.css'
 import ctaStyles from '../../Home.module.css'
 
-// NOVA DEFINIÇÃO DE PROPS - Mais completa para satisfazer o Next.js
-type Props = {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-// Interface para os dados do post que usaremos na página
-interface PostPageData extends Post {
-  categories?: { title: string }[];
-}
-
-// Função para gerar o SEO da página dinamicamente
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const query = `*[_type == "post" && slug.current == $slug][0]{
-    title,
-    excerpt
-  }`
+// 1. Geração de Metadata (SEO) - Com a busca de dados feita aqui dentro
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const query = `*[_type == "post" && slug.current == $slug][0]{ title, excerpt }`
   const post: Post = await client.fetch(query, { slug: params.slug })
 
   if (!post) {
@@ -39,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-// Função para buscar os dados completos do post
-async function getPost(slug: string): Promise<PostPageData> {
+// 2. Componente da Página - Com a busca de dados feita aqui dentro
+export default async function SinglePostPage({ params }: { params: { slug: string } }) {
   const query = `*[_type == "post" && slug.current == $slug][0]{
     title,
     mainImage,
@@ -48,13 +34,7 @@ async function getPost(slug: string): Promise<PostPageData> {
     publishedAt,
     "categories": categories[]->{title}
   }`
-  const post = await client.fetch(query, { slug })
-  return post
-}
-
-// Componente da página com a tipagem corrigida
-export default async function SinglePostPage({ params }: Props) {
-  const post = await getPost(params.slug)
+  const post = await client.fetch(query, { slug: params.slug })
 
   if (!post) {
     notFound()
@@ -75,7 +55,7 @@ export default async function SinglePostPage({ params }: Props) {
           )}
           <h1>{post.title}</h1>
           <div className={styles.categories}>
-            {post.categories?.map((category) => (
+            {post.categories?.map((category: {title: string}) => (
               <span key={category.title} className={styles.categoryTag}>
                 {category.title}
               </span>
@@ -100,11 +80,10 @@ export default async function SinglePostPage({ params }: Props) {
         )}
       </article>
 
-      {/* Seção de CTA no final do post */}
       <section className={`${ctaStyles.section} ${ctaStyles.finalCtaSection}`} style={{marginTop: '5rem', padding: '4rem 1rem'}}>
           <div className="container">
              <h2 className={ctaStyles.sectionTitle}>Este conteúdo te ajudou?</h2>
-             <p className="text-white text-xl mb-10">Se você sente que é o momento de cuidar da sua saúde emocional, eu estou aqui para ajudar.</p>
+             <p className="text-white text-xl mb-10">Esse é só o começo. A terapia é o espaço para aprofundar essas e outras questões. Vamos conversar?</p>
              <Link href="/contato" className={ctaStyles.heroButton}>
                 Agendar uma sessão
             </Link>
