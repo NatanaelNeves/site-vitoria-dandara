@@ -1,87 +1,114 @@
-// src/app/blog/categoria/[slug]/page.tsx
-
-import Link from 'next/link'
+// src/app/blog/[slug]/page.tsx
+import { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { urlForImage } from '@/sanity/lib/image'
+import { PortableText } from '@portabletext/react'
 import type { Post } from '@/sanity/types'
-import blogStyles from '../../Blog.module.css'
+import styles from './Post.module.css'
+import ctaStyles from '../../Home.module.css'
 
-interface CategoryData {
-  categoryTitle: string;
-  posts: Post[];
+// NOVA DEFINIÇÃO DE PROPS - Mais completa para satisfazer o Next.js
+type Props = {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
+// Interface para os dados do post que usaremos na página
+interface PostPageData extends Post {
+  categories?: { title: string }[];
 }
 
-async function getDataForCategory(slug: string): Promise<CategoryData> {
-  const query = `{
-    "categoryTitle": *[_type == "category" && slug.current == $slug][0].title,
-    "posts": *[_type == "post" && references(*[_type=="category" && slug.current == $slug]._id)] | order(publishedAt desc) {
-      _id,
-      title,
-      "slug": slug.current,
-      mainImage,
-      excerpt,
-      publishedAt
-    }
+// Função para gerar o SEO da página dinamicamente
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const query = `*[_type == "post" && slug.current == $slug][0]{
+    title,
+    excerpt
   }`
-  const data = await client.fetch(query, { slug })
-  return data
+  const post: Post = await client.fetch(query, { slug: params.slug })
+
+  if (!post) {
+    return { title: 'Post não encontrado' }
+  }
+
+  return {
+    title: `${post.title} | Blog Vitória Dandara`,
+    description: post.excerpt,
+  }
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
-  const { categoryTitle, posts } = await getDataForCategory(params.slug);
+// Função para buscar os dados completos do post
+async function getPost(slug: string): Promise<PostPageData> {
+  const query = `*[_type == "post" && slug.current == $slug][0]{
+    title,
+    mainImage,
+    body,
+    publishedAt,
+    "categories": categories[]->{title}
+  }`
+  const post = await client.fetch(query, { slug })
+  return post
+}
+
+// Componente da página com a tipagem corrigida
+export default async function SinglePostPage({ params }: Props) {
+  const post = await getPost(params.slug)
+
+  if (!post) {
+    notFound()
+  }
 
   return (
     <>
-      <header className={blogStyles.pageHeader}>
-        <div className="container">
-          <p style={{fontSize: '1.2rem', marginBottom: '0.5rem'}}>Posts sobre o tema:</p>
-          <h1>{categoryTitle || 'Categoria'}</h1>
-        </div>
-      </header>
-
-      <section className={`${blogStyles.postsSection} container`}>
-        <div className={blogStyles.postsGrid}>
-          {posts && posts.length > 0 ? posts.map((post) => (
-            <article key={post._id} className={blogStyles.postCard}>
-              {post.slug && <Link href={`/blog/${post.slug}`}>
-                <div className={blogStyles.imageContainer}>
-                  {post.mainImage && (
-                    <Image
-                      src={urlForImage(post.mainImage)?.url() || ''}
-                      alt={`Imagem de capa do post ${post.title}`}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                    />
-                  )}
-                </div>
-              </Link>}
-              <div className={blogStyles.cardContent}>
-                <h3>
-                  {post.slug && <Link href={`/blog/${post.slug}`}>{post.title}</Link>}
-                </h3>
-                <p className={blogStyles.excerpt}>{post.excerpt}</p>
-                {post.publishedAt && <p className={blogStyles.date}>
-                  {new Date(post.publishedAt).toLocaleDateString('pt-BR', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                  })}
-                </p>}
-              </div>
-            </article>
-          )) : (
-            <p>Nenhum post encontrado para esta categoria.</p>
+      <article className="container">
+        <header className={styles.postHeader}>
+          {post.publishedAt && (
+            <p className={styles.date}>
+              {new Date(post.publishedAt).toLocaleDateString('pt-BR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+              })}
+            </p>
           )}
-        </div>
+          <h1>{post.title}</h1>
+          <div className={styles.categories}>
+            {post.categories?.map((category) => (
+              <span key={category.title} className={styles.categoryTag}>
+                {category.title}
+              </span>
+            ))}
+          </div>
+        </header>
 
-        {/* BOTÃO PARA VOLTAR ADICIONADO AQUI */}
-        <div className={blogStyles.backLinkContainer}>
-          <Link href="/blog" className={blogStyles.backLink}>
-            &larr; Ver todos os posts
-          </Link>
-        </div>
+        {post.mainImage && (
+          <div className={styles.mainImage}>
+            <Image
+              src={urlForImage(post.mainImage)?.width(1200).url() || ''}
+              alt={`Imagem de capa do post ${post.title}`}
+              fill
+            />
+          </div>
+        )}
 
+        {post.body && (
+          <div className={styles.postBody}>
+            <PortableText value={post.body} />
+          </div>
+        )}
+      </article>
+
+      {/* Seção de CTA no final do post */}
+      <section className={`${ctaStyles.section} ${ctaStyles.finalCtaSection}`} style={{marginTop: '5rem', padding: '4rem 1rem'}}>
+          <div className="container">
+             <h2 className={ctaStyles.sectionTitle}>Este conteúdo te ajudou?</h2>
+             <p className="text-white text-xl mb-10">Se você sente que é o momento de cuidar da sua saúde emocional, eu estou aqui para ajudar.</p>
+             <Link href="/contato" className={ctaStyles.heroButton}>
+                Agendar uma sessão
+            </Link>
+          </div>
       </section>
     </>
   )
