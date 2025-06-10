@@ -1,6 +1,7 @@
 // src/sanity/types.ts
 
 import type { Image as SanityImage, Slug as SanitySlug } from 'sanity'
+import type { PortableTextBlock } from '@portabletext/types'
 
 // Definindo a estrutura de um Post
 export interface Post {
@@ -11,5 +12,5 @@ export interface Post {
   mainImage?: SanityImage;
   excerpt?: string;
   publishedAt?: string;
-  body?: any[]; // O corpo do texto rico (Portable Text)
+  body?: PortableTextBlock[]; // <-- CORREÇÃO APLICADA AQUI
 }
