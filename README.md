@@ -88,4 +88,4 @@ Além disso, a URL de produção (ex: `https://site-vitoria-dandara.vercel.app`)
 
 ---
 
-Desenvolvido por **[Seu Nome ou Usuário do GitHub aqui]**.
+Desenvolvido por **NatanaelNeves**.
