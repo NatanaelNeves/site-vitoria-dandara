@@ -2,6 +2,7 @@
 'use client'; 
 
 import Link from 'next/link';
+import Image from 'next/image'; // Importe o componente Image
 import styles from '../Page.module.css';
 import homeStyles from '../Home.module.css'; 
 
@@ -10,11 +11,24 @@ export default function SobrePage() {
     <>
       <div className={styles.pageWrapper}>
         <div className={`container ${styles.content}`}>
+
+          {/* IMAGEM ADICIONADA AQUI */}
+          <div className={styles.aboutImageContainer}>
+            <Image
+              src="/vitoria-dandara-perfil.jpeg"
+              alt="Foto da psicóloga Vitória Dandara"
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+
           <h1>Meu Caminho até Você</h1>
+
           <p style={{textAlign: 'center', fontSize: '1.2rem', fontStyle: 'italic'}}>
             Acredito que a terapia é um ato de coragem e um profundo gesto de autocuidado. Meu papel é ser a facilitadora segura e ética da sua jornada.
           </p>
-          {/* ... (resto do conteúdo que já está correto) ... */}
+
+          {/* ... (o resto do arquivo continua o mesmo) ... */}
           <h2>A Escolha pela Psicologia: O Meu &ldquo;Porquê&rdquo;</h2>
           <p>
             Desde cedo, fui movida por uma inquietação sobre as complexidades da mente humana e pela potência dos laços afetivos. A psicologia não foi apenas uma escolha profissional, mas um chamado para entender e acolher as histórias que cada pessoa carrega. Essa paixão me guiou para uma prática clínica que valoriza não apenas a técnica, mas principalmente a escuta empática e a construção de uma relação de confiança mútua.

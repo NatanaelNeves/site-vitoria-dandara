@@ -43,7 +43,14 @@ export default async function HomePage() {
       {/* Seção de Apresentação Rápida */}
       <section className={`${styles.section} container`}>
         <div className={styles.introGrid}>
-          <div className={styles.introImageContainer}></div>
+          <div className={styles.introImageContainer}>
+          <Image
+      src="/vitoria-dandara-perfil.jpeg" // O caminho para a imagem na pasta 'public'
+      alt="Foto profissional da psicóloga Vitória Dandara da Cunha"
+      fill // A propriedade 'fill' faz a imagem preencher o container
+      style={{ objectFit: 'cover' }} // Garante que a imagem cubra o espaço sem distorcer
+    />
+          </div>
           <div className={styles.introText}>
             <h3>Sou Vitória Dandara, sua psicóloga.</h3>
             <p>Com uma abordagem acolhedora e baseada em evidências, meu trabalho é te ajudar a construir ferramentas para uma vida mais leve e consciente. Formada pelo Centro Universitário Sete de Setembro e em contínua formação em Terapia Cognitivo-Comportamental, ofereço um espaço de escuta, ética e compromisso para você ressignificar suas dores.</p>

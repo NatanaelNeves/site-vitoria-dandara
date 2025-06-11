@@ -52,3 +52,14 @@
     font-size: 1.5rem;
     margin-bottom: 1rem;
   }
+
+  /* Adicione ao final de src/app/Page.module.css */
+.aboutImageContainer {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%; /* Deixa a imagem redonda */
+  overflow: hidden;
+  margin: 0 auto 3rem auto;
+  position: relative;
+  box-shadow: var(--box-shadow);
+}

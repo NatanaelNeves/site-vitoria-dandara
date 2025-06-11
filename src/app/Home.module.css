@@ -88,7 +88,7 @@
   overflow: hidden;
   background-color: var(--teal);
   box-shadow: var(--box-shadow);
-  /* Use uma imagem real da Vitória aqui */
+  position: relative; /* <-- CORREÇÃO APLICADA AQUI */
 }
 
 .introText h3 {
@@ -233,7 +233,6 @@
   font-family: var(--font-body);
   font-weight: 700;
 }
-
 
 /* CTA Final */
 .finalCtaSection {
